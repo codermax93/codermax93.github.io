@@ -1159,7 +1159,9 @@ body {
 
 .logo-item-wrap {
     width: 160px;
+    margin: 10px 0 15px 0;
 }
+
 
 .footer {
     background: #1d0aae;
@@ -1167,10 +1169,6 @@ body {
 
 .logo-item-wrap img {
     max-width: 100%;
-}
-
-.logo-item-wrap {
-    margin-bottom: 5px;
 }
 
 .logo-item {

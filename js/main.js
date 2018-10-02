@@ -95,6 +95,9 @@ owl.on('initialized.owl.carousel', function (event) {
     $('.irs-slider.single').css('width', dragLength + "%")
 
 });
+
+
+
 function initializeOwlCarusel() {
     owl.owlCarousel({
         loop: true,
