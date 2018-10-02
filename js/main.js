@@ -77,6 +77,7 @@ owl.on('initialized.owl.carousel', function (event) {
         keyboard: true,
         step: 1,
         hide_min_max: true,
+        hide_from_to: true,
         onChange: function (data) {
             owlTo = (data.from) - 1;
             owl.trigger('to.owl.carousel', [owlTo, 500, true]);
