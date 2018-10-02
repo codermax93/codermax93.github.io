@@ -1756,3 +1756,7 @@ body {
     font-size: 13px;
     font-weight: normal;
 }
+
+.img-top-5  img {
+    max-width: 100px;
+}
