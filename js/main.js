@@ -6,7 +6,10 @@ const range_2_default = 400000,
     range_3_min = 12,
     range_3_max = 48,
     range_3_step = 12,
-    issuerIds = [5, 11, 1, 2, 3, 7, 26, 19, 30, 39, 21, 42, 23];
+    issuerIds = [5, 11, 1, 2, 3, 7, 26, 19, 30, 39, 21, 42, 23],
+    bank_max_height = 180,
+    bank_min_height = 40;
+
 var emitents = [],
     allEmitents,
     range_2_val = range_2_default,
@@ -217,6 +220,19 @@ function emitentChange() {
             sum = Math.round(range_2_val / emitent.amount * emitent.planProfit);
         }
     }
+
+    //Calc Cylinder
+    if (range_3_val >= 36) {
+        var bankTop = Math.min(52000, range_2_val * 0.13);
+        var topHeight = Math.max(bank_min_height, Math.round(bankTop * bank_max_height / sum));
+        $('#calc-left-bank').css('height', (bank_max_height - topHeight) + 'px');
+        $('#calc-left-bank .top').css('height', topHeight + 'px');
+    } else {
+        $('#calc-left-bank').css('height', '163px');
+    }
+    $('#calc-right-bank').css('height', '163px');
+    $('#calc-left-bank .top').toggleClass('hideTop', range_3_val < 36);
+
     $('#calc-yeld-1').text(yeld);
     $('#calc-sum-1').text(sum);
 }
