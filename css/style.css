@@ -251,25 +251,21 @@ body {
 .subscribe-text::-webkit-input-placeholder {
     color: #6b6b6b;
     font-size: 15px;
-    font-family: 'Proxima Nova Th';
 }
 
 .subscribe-text ::-moz-placeholder {
     color: #6b6b6b;
     font-size: 15px;
-    font-family: 'Proxima Nova Th';
 }
 
 .subscribe-text:-ms-input-placeholder {
     color: #6b6b6b;
     font-size: 15px;
-    font-family: 'Proxima Nova Th';
 }
 
 .subscribe-text :-moz-placeholder {
     color: #6b6b6b;
     font-size: 15px;
-    font-family: 'Proxima Nova Th';
 }
 
 .subscribe-submit {
