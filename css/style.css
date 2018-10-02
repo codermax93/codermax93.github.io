@@ -985,7 +985,7 @@ body {
 .nav-tabs>li.active>a:focus {
     border: 1px solid transparent;
     color: #ff6553;
-    outline: 0 auto -webkit-focus-ring-color;
+    outline: none;
     outline-offset: 0;
 }
 
