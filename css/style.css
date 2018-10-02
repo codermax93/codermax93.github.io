@@ -250,22 +250,22 @@ body {
 
 .subscribe-text::-webkit-input-placeholder {
     color: #6b6b6b;
-    font-size: 15px;
+    font-size: 14px;
 }
 
 .subscribe-text ::-moz-placeholder {
     color: #6b6b6b;
-    font-size: 15px;
+    font-size: 14px;
 }
 
 .subscribe-text:-ms-input-placeholder {
     color: #6b6b6b;
-    font-size: 15px;
+    font-size: 14px;
 }
 
 .subscribe-text :-moz-placeholder {
     color: #6b6b6b;
-    font-size: 15px;
+    font-size: 14px;
 }
 
 .subscribe-submit {
