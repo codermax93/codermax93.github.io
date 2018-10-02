@@ -288,6 +288,13 @@ body {
 .styled-checkbox+label {
     position: relative;
     padding: 0;
+    color: #1e14a5;
+}
+
+
+.header-subscribe-checkbox li a  {
+    color: #1e14a5;
+    text-decoration: underline;
 }
 
 .styled-checkbox+label:before {
