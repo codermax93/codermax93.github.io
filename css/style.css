@@ -513,6 +513,7 @@ body {
     left: 50%;
     transform: translate(-50%, 0);
     width: 100%;
+    height: 100%;
 }
 
 .slick-slider-inner {
@@ -557,12 +558,13 @@ body {
     text-align: center;
     margin-bottom: 5px;
     color: #fff;
+    font-size: 13px;
 }
 
 .slider-content-subtitle {
     text-align: center;
     margin-bottom: 20px;
-    font-size: 18px;
+    font-size: 20px;
     color: #fff;
     font-family: 'Proxima Nova Thin';
 }

@@ -127,8 +127,14 @@ function initializeOwlCarusel() {
             900: {
                 items: 4
             },
-            1000: {
+            1200: {
                 items: 4
+            },
+            1370: {
+                items: 5
+            },
+            1400: {
+                items: 6
             }
         }
     });
