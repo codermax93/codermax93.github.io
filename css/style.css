@@ -424,7 +424,6 @@ body {
 .bond-info-wrap {
     min-height: 400px;
     padding: 0;
-    background: #fff;
 }
 
 .section-3 {
@@ -449,6 +448,7 @@ body {
     padding: 40px 0;
     border: 1px solid #e7ebef;
     min-height: 405px;
+    background: #fff;
 }
 
 .bond-info-title {
