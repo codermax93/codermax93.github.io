@@ -84,7 +84,7 @@ owl.on('initialized.owl.carousel', function (event) {
             emitentChange();
         },
         onUpdate: function (data) {
-            console.log(data.from)
+            // console.log(data.from)
             if(currentEmitent != data.from){
                 currentEmitent = data.from;
                 emitentChange();
@@ -343,7 +343,7 @@ $(document).ready(function () {
             initializeOwlCarusel();
             emitentChange();
 
-            console.log(allEmitents);
+            // console.log(allEmitents);
         })
         .catch(alert);
 });
