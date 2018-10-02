@@ -1,15 +1,53 @@
+const range_2_default = 400000,
+    range_2_min = 10000,
+    range_2_max = 1000000,
+    range_2_step = 1000,
+    range_3_default = 36,
+    range_3_min = 12,
+    range_3_max = 48,
+    range_3_step = 12,
+    issuerIds = [5, 11, 1, 2, 3, 7, 26, 19, 30, 39, 21, 42, 23];
+var emitents = [],
+    allEmitents,
+    range_2_val = range_2_default,
+    range_3_val = range_3_default,
+    currentEmitent = 1,
+    timer;
+
 $("#range-02").ionRangeSlider({
-    min: 10000,
-    max: 1000000,
-    from: 500000,
+    min: range_2_min,
+    max: range_2_max,
+    step: range_2_step,
+    from: range_2_default,
     hide_from_to: true,
+    onChange: function (data) {
+        $("#range-02-text").val(data.from);
+        range_2_val = data.from;
+        emitentChange();
+    },
+    onUpdate: function (data) {
+        $("#range-02-text").val(data.from);
+        range_2_val = data.from;
+        emitentChange();
+    }
 });
 
 $("#range-03").ionRangeSlider({
-    min: 12,
-    max: 48,
-    from: 24,
+    min: range_3_min,
+    max: range_3_max,
+    step: range_3_step,
+    from: range_3_default,
     hide_from_to: true,
+    onChange: function (data) {
+        $("#range-03-text").val(data.from);
+        range_3_val = data.from;
+        emitentChange();
+    },
+    onUpdate: function (data) {
+        $("#range-03-text").val(data.from);
+        range_3_val = data.from;
+        emitentChange();
+    }
 });
 
 $('.testimonials-slider').owlCarousel({
@@ -19,9 +57,6 @@ $('.testimonials-slider').owlCarousel({
     navText: false,
     nav: true,
 });
-
-var itemsNum = 0;
-
 var owl = $('.owl-carousel');
 
 owl.on('initialized.owl.carousel', function (event) {
@@ -33,54 +68,61 @@ owl.on('initialized.owl.carousel', function (event) {
         type: "single",
         min: 1,
         max: itemCount - (size - 1),
+        from: currentEmitent,
         keyboard: true,
         step: 1,
-        hide_from_to: true,
-        hide_min_max: true,
         onChange: function (data) {
             owlTo = (data.from) - 1;
-            // console.log("Позиция ползунка: " + owlTo);
             owl.trigger('to.owl.carousel', [owlTo, 500, true]);
+            currentEmitent = data.from;
+            emitentChange();
+        },
+        onUpdate: function (data) {
+            console.log(data.from)
+            if(currentEmitent != data.from){
+                currentEmitent = data.from;
+                emitentChange();
+            }
         }
     });
 
     $('.irs-slider.single').css('width', dragLength + "%")
 
 });
-
-//Слайдер
-owl.owlCarousel({
-    loop: true,
-    center: true,
-    mouseDrag: true,
-    margin: 10,
-    slideBy: 1,
-    items: 8,
-    responsiveClass: true,
-    responsive: {
-        0: {
-            items: 2
-        },
-        500: {
-            items: 3
-        },
-        600: {
-            items: 4
-        },
-        700: {
-            items: 4
-        },
-        800: {
-            items: 4
-        },
-        900: {
-            items: 4
-        },
-        1000: {
-            items: 4
+function initializeOwlCarusel() {
+    owl.owlCarousel({
+        loop: true,
+        center: true,
+        mouseDrag: true,
+        margin: 10,
+        slideBy: 1,
+        items: 8,
+        responsiveClass: true,
+        responsive: {
+            0: {
+                items: 2
+            },
+            500: {
+                items: 3
+            },
+            600: {
+                items: 4
+            },
+            700: {
+                items: 4
+            },
+            800: {
+                items: 4
+            },
+            900: {
+                items: 4
+            },
+            1000: {
+                items: 4
+            }
         }
-    }
-});
+    });
+}
 
 owl.on('dragged.owl.carousel', function (event) {
     var itemCount = event.item.count;
@@ -89,7 +131,7 @@ owl.on('dragged.owl.carousel', function (event) {
     var index = event.item.index;
     //Fix for loop carousel
     var carousel = owl.data('owl.carousel');
-    if(carousel.options.loop) {
+    if (carousel.options.loop) {
         var tempFix = index - (event.relatedTarget.clones().length / 2) + 1;
         if (tempFix > event.relatedTarget.clones().length) {
             index = tempFix - event.relatedTarget.clones().length;
@@ -106,13 +148,12 @@ owl.on('dragged.owl.carousel', function (event) {
 owl.on('resized.owl.carousel', function (event) {
     var itemCount = event.item.count;
     var size = event.page.size;
-
-    var curItem = event.item.index + 1;
     var dragLength = 100 / (itemCount / size);
-    $("#range").data("ionRangeSlider").update({
-        max: itemCount - (size - 1),
-        from: curItem
-    });
+    //var curItem = event.item.index + 1;
+    // $("#range").data("ionRangeSlider").update({
+    //     max: itemCount - (size - 1),
+    //     from: curItem
+    // });
     $('.irs-slider.single').css('width', dragLength + "%");
 });
 
@@ -122,19 +163,17 @@ $("ul.nav-tabs a").click(function (e) {
 });
 
 
-(function($){
-    $(window).on("load",function(){        
+(function ($) {
+    $(window).on("load", function () {
         $("#myTab, #tab-content-in, .tab-wrap, .tab-content-wrap").mCustomScrollbar({
             setHeight: 500,
         });
-        
     });
 })(jQuery);
 
 
 $(window).bind('scroll', function () {
     var num = 200;
-
     if ($(window).scrollTop() > num) {
         $('.header, .section-1').addClass('fixed');
     } else {
@@ -142,30 +181,131 @@ $(window).bind('scroll', function () {
     }
 });
 
-$(document).ready(function() {
-	$('a[rel="relativeanchor"]').click(function(){
-	    $('html, body').animate({
-	        scrollTop: $( $.attr(this, 'href') ).offset().top - 150
-	    }, 1000);
-	    return false;
-	}); 
+function emitentChange() {
+    var e = emitents[currentEmitent-1],
+        emitent,
+        yeld,
+        sum;
+
+    if (range_3_val >= 12) {
+        var localEmitents = allEmitents.filter(r => {
+            var dateDiff = Math.floor((Date.parse(r.planDate) - Date.now()) / (1000 * 60 * 60 * 24));
+            if(range_3_val == 12)
+                return r.issuerId == e.issuerId && dateDiff <= 365;
+            if(range_3_val == 24)
+                return r.issuerId == e.issuerId && dateDiff > 365 && dateDiff <= 730;
+            if(range_3_val == 36)
+                return r.issuerId == e.issuerId && dateDiff > 730 && dateDiff <= 1095;
+            if(range_3_val == 48)
+                return r.issuerId == e.issuerId && dateDiff > 1095 && dateDiff <= 1460;
+        });
+        console.log(localEmitents)
+        var res = Math.max.apply(null, localEmitents.map(e => e.planYield));
+        emitent = localEmitents.find(e => e.planYield = res);
+    }
+    if (!emitent) {
+        console.log('Can not find emitent for this range');
+        yeld = 0; sum = 0;
+    } else {
+        if (range_3_val >= 36 && range_3_val <= 48) {
+            console.log('IIS calculated');
+            var dateDiff = Math.floor((Date.parse(emitent.planDate) - Date.now()) / (1000 * 60 * 60 * 24));
+            yeld = (emitent.planYield + Math.min(0.13, 52000/emitent.planProfit) * (365/dateDiff) * 100).toFixed(2);
+            sum = Math.round(range_2_val / emitent.amount * emitent.planProfit) + Math.max(range_2_val * 0.13, 52000);
+        } else {
+            yeld = emitent ? emitent.planYield : 0;
+            sum = Math.round(range_2_val / emitent.amount * emitent.planProfit);
+        }
+    }
+    $('#calc-yeld-1').text(yeld);
+    $('#calc-sum-1').text(sum);
+}
+
+function createCard(cardData) {
+    var cardTemplate = [
+        '<div class="item slick-slider-block">',
+            '<div class="slick-slider-inner">',
+                '<div class="slick-slider-item">',
+                    '<div class="slick-slider-content">',
+                        '<p class="slider-content-title">',
+                            cardData.name,
+                        '</p>',
+                        '<div class="slider-content-subtitle">',
+                            cardData.subName,
+                        '</div>',
+                    '</div>',
+                    '<div class="slick-slider-logo">',
+                        '<img src="images/slider/' + cardData.image + '" alt="">',
+                    '</div>',
+                '</div>',
+            '</div>',
+        '</div>'
+    ];
+    return $(cardTemplate.join(''));
+  }
+
+$(document).ready(function () {
+    $('a[rel="relativeanchor"]').click(function () {
+        $('html, body').animate({
+            scrollTop: $($.attr(this, 'href')).offset().top - 150
+        }, 1000);
+        return false;
+    });
+
+    $("#range-02-text").val(range_2_default);
+    $("#range-03-text").val(range_3_default);
+    $("#range-02-text").on('change',function() {
+        $("#range-02").data("ionRangeSlider").update({
+            from: $("#range-02-text").val()
+        });
+    });
+
+    $("#range-03-text").on('change',function() {
+        var val = Math.round($("#range-03-text").val()/range_3_step) * range_3_step;
+        $("#range-03-text").val(val);
+        $("#range-03").data("ionRangeSlider").update({
+            from: val
+        });
+    });
+    
+    fetch('https://public.evolution.ru/calc/10000000/1008')
+        .then((response) => {
+            return response.json();
+        })
+        .then((json) => {
+            allEmitents = json.offers.filter(e => issuerIds.includes(e.security.issuerId)).map(e => {
+                e.issuerId = e.security.issuerId;
+                return e;
+            }).sort(function (a, b) {
+                if (a.issuerId > b.issuerId) return 1;
+                if (a.issuerId < b.issuerId) return -1;
+                return 0;
+            });
+
+            issuerIds.sort((a, b) => { return a - b }).forEach(issuerId => {
+                var issuerEmitents = json.offers.filter(e => e.security.issuerId == issuerId);
+                if (issuerEmitents.length > 0) {
+                    var res = Math.max.apply(null, issuerEmitents.map(e => e.planYield));
+                    var obj = issuerEmitents.find(e => e.planYield = res);
+                    obj.issuerId = issuerId;
+                    emitents.push(obj);
+                }
+            })
+
+            var cards = $();
+            emitents.forEach(e => {
+                var date = new Date(e.planDate);
+                var dateString = date.getDate()+'.'+date.getMonth()+'.'+date.getFullYear();
+                var img = e.issuerId + '.jpg';
+                cards = cards.add(createCard({name: e.security.name, subName: e.planYield + '% до ' + dateString, image: img }));
+            })
+            $('#calc-slider').html(cards);
+            initializeOwlCarusel();
+            emitentChange();
+
+            console.log(allEmitents);
+        })
+        .catch(alert);
 });
 
 $('#input-tell-call').mask('+7 (000) 000-00-00');
-
-$('.custom-navbar li a').click(function (e) {
-    $('.navbar-collapse').collapse('toggle');
-});
-
-$(document).ready(function() {
-    $('.collapse').on('show.bs.collapse', function() {
-        var id = $(this).attr('id');
-        $('a[href="#' + id + '"]').closest('.panel-heading').addClass('active-faq');
-        $('a[href="#' + id + '"] .panel-title span').html('<i class="glyphicon glyphicon-minus"></i>');
-    });
-    $('.collapse').on('hide.bs.collapse', function() {
-        var id = $(this).attr('id');
-        $('a[href="#' + id + '"]').closest('.panel-heading').removeClass('active-faq');
-        $('a[href="#' + id + '"] .panel-title span').html('<i class="glyphicon glyphicon-plus"></i>');
-    });
-});
