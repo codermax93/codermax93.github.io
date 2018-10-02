@@ -1158,7 +1158,7 @@ body {
 }
 
 .logo-item-wrap {
-    width: 200px;
+    width: 160px;
 }
 
 .footer {
@@ -1765,4 +1765,12 @@ body {
 
 .img-top-5  img {
     max-width: 100px;
+}
+
+.logo.m.navbar-brand {
+    padding: 15px 0;
+}
+
+.logo.m.navbar-brand img {
+    height: 40px;
 }
