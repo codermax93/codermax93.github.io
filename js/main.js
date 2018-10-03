@@ -15,7 +15,8 @@ var emitents = [],
     range_2_val = range_2_default,
     range_3_val = range_3_default,
     currentEmitent = 1,
-    timer;
+    timer,
+    bankYelds;
 
 $("#range-02").ionRangeSlider({
     min: range_2_min,
@@ -185,42 +186,40 @@ $(window).bind('scroll', function () {
 });
 
 function emitentChange() {
-    var e = emitents[currentEmitent-1],
-        emitent,
-        yeld1,
-        sum1,
-        yeld2,
-        sum2;
+    let emitent,
+        yeld1 = 0,
+        sum1 = 0,
+        yeld2 = 0,
+        sum2 = 0;
 
     if (range_3_val >= 12) {
-        var localEmitents = allEmitents.filter(r => {
+        let localEmitents = allEmitents.filter(r => {
             var dateDiff = Math.floor((Date.parse(r.planDate) - Date.now()) / (1000 * 60 * 60 * 24));
             if(range_3_val == 12)
-                return r.issuerId == e.issuerId && dateDiff <= 365;
+                return dateDiff <= 365;
             if(range_3_val == 24)
-                return r.issuerId == e.issuerId && dateDiff > 365 && dateDiff <= 730;
+                return dateDiff > 365 && dateDiff <= 730;
             if(range_3_val == 36)
-                return r.issuerId == e.issuerId && dateDiff > 730 && dateDiff <= 1095;
+                return dateDiff > 730 && dateDiff <= 1095;
             if(range_3_val == 48)
-                return r.issuerId == e.issuerId && dateDiff > 1095 && dateDiff <= 1460;
+                return dateDiff > 1095 && dateDiff <= 1460;
+            return false;
         });
-        console.log(localEmitents)
-        var res = Math.max.apply(null, localEmitents.map(e => e.planYield));
-        emitent = localEmitents.find(e => e.planYield = res);
+        let max = Math.max.apply(null, localEmitents.map(e => e.planYield));
+        emitent = localEmitents.find(e => e.planYield = max);
     }
-    if (!emitent) {
-        console.log('Can not find emitent for this range');
-        yeld1 = 0; sum1 = 0;
-    } else {
-        if (range_3_val >= 36 && range_3_val <= 48) {
-            console.log('IIS calculated');
-            var dateDiff = Math.floor((Date.parse(emitent.planDate) - Date.now()) / (1000 * 60 * 60 * 24));
-            yeld1 = (emitent.planYield + Math.min(0.13, 52000/emitent.planProfit) * (365/dateDiff) * 100).toFixed(2);
-            sum1 = Math.round(range_2_val / emitent.amount * emitent.planProfit) + Math.max(range_2_val * 0.13, 52000);
-        } else {
-            yeld1 = emitent.planYield;
-            sum1 = Math.round(range_2_val / emitent.amount * emitent.planProfit);
+
+    if (emitent) {
+        yeld1 = emitent.planYield;
+        sum1 = Math.round(range_2_val * yeld1 / 100 * range_3_val / 12);
+        if (range_3_val >= 36) {
+            yeld1 = (yeld1 + Math.min(0.13 * range_2_val, 52000 / range_2_val / range_3_val / 12 * 100)).toFixed(2);
         }
+    }
+
+    if (bankYelds) {
+        yeld2 = bankYelds[Math.round(range_3_val / 12) - 1];
+        sum2 = range_2_val * yeld2 / 100 * range_3_val / 12;
     }
 
     //Calc Cylinder
@@ -262,7 +261,7 @@ function createCard(cardData) {
         '</div>'
     ];
     return $(cardTemplate.join(''));
-  }
+}
 
 $(document).ready(function () {
     $('a[rel="relativeanchor"]').click(function () {
@@ -287,6 +286,15 @@ $(document).ready(function () {
             from: val
         });
     });
+
+    fetch('constants.txt')
+        .then(response => response.text())
+        .then(text => {
+            let yelds = text.split("\n").map(x => parseFloat(x));
+            if (yelds && yelds.length == 4 ){
+                bankYelds = yelds
+            }
+        })
     
     fetch('https://public.evolution.ru/calc/10000000/1008')
         .then((response) => {
