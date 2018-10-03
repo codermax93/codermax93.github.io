@@ -1772,3 +1772,7 @@ body {
 .logo.m.navbar-brand img {
     height: 40px;
 }
+
+.bank.gray .top:after {
+    background: url(../images/gray-bank-bottom.png) no-repeat bottom;
+} 
