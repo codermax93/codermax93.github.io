@@ -7,7 +7,7 @@ const range_2_default = 400000,
     range_3_max = 48,
     range_3_step = 12,
     issuerIds = [5, 11, 1, 2, 3, 7, 26, 19, 30, 39, 21, 42, 23],
-    bank_max_height = 180,
+    bank_max_height = 140,
     bank_min_height = 40;
 
 var emitents = [],
@@ -187,8 +187,10 @@ $(window).bind('scroll', function () {
 function emitentChange() {
     var e = emitents[currentEmitent-1],
         emitent,
-        yeld,
-        sum;
+        yeld1,
+        sum1,
+        yeld2,
+        sum2;
 
     if (range_3_val >= 12) {
         var localEmitents = allEmitents.filter(r => {
@@ -208,33 +210,35 @@ function emitentChange() {
     }
     if (!emitent) {
         console.log('Can not find emitent for this range');
-        yeld = 0; sum = 0;
+        yeld1 = 0; sum1 = 0;
     } else {
         if (range_3_val >= 36 && range_3_val <= 48) {
             console.log('IIS calculated');
             var dateDiff = Math.floor((Date.parse(emitent.planDate) - Date.now()) / (1000 * 60 * 60 * 24));
-            yeld = (emitent.planYield + Math.min(0.13, 52000/emitent.planProfit) * (365/dateDiff) * 100).toFixed(2);
-            sum = Math.round(range_2_val / emitent.amount * emitent.planProfit) + Math.max(range_2_val * 0.13, 52000);
+            yeld1 = (emitent.planYield + Math.min(0.13, 52000/emitent.planProfit) * (365/dateDiff) * 100).toFixed(2);
+            sum1 = Math.round(range_2_val / emitent.amount * emitent.planProfit) + Math.max(range_2_val * 0.13, 52000);
         } else {
-            yeld = emitent ? emitent.planYield : 0;
-            sum = Math.round(range_2_val / emitent.amount * emitent.planProfit);
+            yeld1 = emitent.planYield;
+            sum1 = Math.round(range_2_val / emitent.amount * emitent.planProfit);
         }
     }
 
     //Calc Cylinder
     if (range_3_val >= 36) {
         var bankTop = Math.min(52000, range_2_val * 0.13);
-        var topHeight = Math.max(bank_min_height, Math.round(bankTop * bank_max_height / sum));
+        var topHeight = Math.max(bank_min_height, Math.round(bankTop * bank_max_height / sum1));
         $('#calc-left-bank').css('height', (bank_max_height - topHeight) + 'px');
         $('#calc-left-bank .top').css('height', topHeight + 'px');
     } else {
-        $('#calc-left-bank').css('height', '163px');
+        $('#calc-left-bank').css('height', '123px');
     }
-    $('#calc-right-bank').css('height', '163px');
+    $('#calc-right-bank').css('height', '123px');
     $('#calc-left-bank .top').toggleClass('hideTop', range_3_val < 36);
 
-    $('#calc-yeld-1').text(yeld);
-    $('#calc-sum-1').text(sum);
+    $('#calc-yeld-1').text(yeld1);
+    $('#calc-sum-1').text(sum1);
+    $('#calc-yeld-2').text(yeld2);
+    $('#calc-sum-2').text(sum2);
 }
 
 function createCard(cardData) {
