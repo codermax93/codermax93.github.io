@@ -120,9 +120,6 @@ function initializeOwlCarusel(isLoop) {
             },
             1370: {
                 items: 5
-            },
-            1400: {
-                items: 6
             }
         }
     });
