@@ -228,7 +228,7 @@ function emitentChange() {
         yeld1 = emitent.planYield;
         sum1 = Math.round(range_2_val * (yeld1 / 100) * year) + iis;
         if (year >= 3) {
-            yeld1 = (yeld1 + Math.min(0.13 * range_2_val, 52000 / range_2_val / year * 100));
+            yeld1 = yeld1 + Math.min(range_2_val * 0.13, 52000) / range_2_val / year * 100;
         }
     }
 
@@ -303,7 +303,6 @@ $(document).ready(function () {
         });
     });
 
-    $("#range-03-text").val(range_3_default);
     $("#range-03-text").on('change',function() {
         var val = Math.round($("#range-03-text").val()/range_3_step) * range_3_step;
         $("#range-03-text").val(val);
