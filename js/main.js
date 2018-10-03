@@ -25,12 +25,12 @@ $("#range-02").ionRangeSlider({
     from: range_2_default,
     hide_from_to: true,
     onChange: function (data) {
-        $("#range-02-text").val(data.from);
+        $("#range-02-text").val(data.from.toLocaleString("en-US"));
         range_2_val = data.from;
         emitentChange();
     },
     onUpdate: function (data) {
-        $("#range-02-text").val(data.from);
+        $("#range-02-text").val(data.from.toLocaleString("en-US"));
         range_2_val = data.from;
         emitentChange();
     }
@@ -198,44 +198,43 @@ $(window).bind('scroll', function () {
 
 function emitentChange() {
     let emitent,
+        year = Math.round(range_3_val / 12),
         yeld1 = 0,
         sum1 = 0,
         yeld2 = 0,
         sum2 = 0,
         iis = 0;
 
-    if (range_3_val >= 12) {
-        let localEmitents = allEmitents.filter(r => {
-            var dateDiff = Math.floor((Date.parse(r.planDate) - Date.now()) / (1000 * 60 * 60 * 24));
-            if(range_3_val == 12)
-                return dateDiff <= 365;
-            if(range_3_val == 24)
-                return dateDiff > 365 && dateDiff <= 730;
-            if(range_3_val == 36)
-                return dateDiff > 730 && dateDiff <= 1095;
-            if(range_3_val == 48)
-                return dateDiff > 1095 && dateDiff <= 1460;
-            return false;
-        });
-        let max = Math.max.apply(null, localEmitents.map(e => e.planYield));
-        emitent = localEmitents.find(e => e.planYield = max);
-    }
+    let localEmitents = allEmitents.filter(r => {
+        var dateDiff = Math.floor((Date.parse(r.planDate) - Date.now()) / (1000 * 60 * 60 * 24));
+        if(year == 1)
+            return dateDiff <= 365;
+        if(year == 2)
+            return dateDiff > 365 && dateDiff <= 730;
+        if(year == 3)
+            return dateDiff > 730 && dateDiff <= 1095;
+        if(year == 4)
+            return dateDiff > 1095 && dateDiff <= 1460;
+        return false;
+    });
+    let maxYeld = Math.max.apply(null, localEmitents.map(e => e.planYield));
+    emitent = localEmitents.find(e => e.planYield = maxYeld);
 
-    if (range_3_val >= 36) {
+    if (year >= 3) {
         iis = Math.min(52000, range_2_val * 0.13);
     }
 
     if (emitent) {
         yeld1 = emitent.planYield;
-        sum1 = Math.round(range_2_val * yeld1 / 100 * range_3_val / 12) + iis;
-        if (range_3_val >= 36) {
-            yeld1 = (yeld1 + Math.min(0.13 * range_2_val, 52000 / range_2_val / range_3_val / 12 * 100)).toFixed(2);
+        sum1 = Math.round(range_2_val * (yeld1 / 100) * year) + iis;
+        if (year >= 3) {
+            yeld1 = (yeld1 + Math.min(0.13 * range_2_val, 52000 / range_2_val / year * 100));
         }
     }
 
     if (bankYelds) {
-        yeld2 = bankYelds[Math.round(range_3_val / 12) - 1];
-        sum2 = Math.round(range_2_val * yeld2 / 100 * range_3_val / 12);
+        yeld2 = bankYelds[year - 1];
+        sum2 = Math.round(range_2_val * (yeld2 / 100) * year);
     }
 
     //Calc Cylinder
@@ -249,7 +248,7 @@ function emitentChange() {
         leftBankHeight = sum1 * bank_max_height / sum2;
     }
 
-    if (range_3_val >= 36) {
+    if (year >= 3) {
         leftBankTopHeight = Math.max(bank_min_height, Math.round(iis * bank_max_height / sum1));
         leftBankHeight = leftBankHeight - leftBankTopHeight + 16;
     }
@@ -257,12 +256,12 @@ function emitentChange() {
     $('#calc-left-bank').css('height', leftBankHeight + 'px');
     $('#calc-right-bank').css('height', rightBankHeight + 'px');
     $('#calc-left-bank .top').css('height', leftBankTopHeight + 'px');
-    $('#calc-left-bank .top').toggleClass('hideTop', range_3_val < 36);
+    $('#calc-left-bank .top').toggleClass('hideTop', year < 3);
 
-    $('#calc-yeld-1').text(yeld1);
-    $('#calc-sum-1').text(sum1);
-    $('#calc-yeld-2').text(yeld2);
-    $('#calc-sum-2').text(sum2);
+    $('#calc-yeld-1').text(yeld1.toFixed(2));
+    $('#calc-sum-1').text(sum1.toLocaleString("en-US"));
+    $('#calc-yeld-2').text(yeld2.toFixed(2));
+    $('#calc-sum-2').text(sum2.toLocaleString("en-US"));
 }
 
 function createCard(cardData) {
@@ -296,14 +295,15 @@ $(document).ready(function () {
         return false;
     });
 
-    $("#range-02-text").val(range_2_default);
+    $("#range-02-text").val(range_2_default.toLocaleString("en-US"));
     $("#range-03-text").val(range_3_default);
     $("#range-02-text").on('change',function() {
         $("#range-02").data("ionRangeSlider").update({
-            from: $("#range-02-text").val()
+            from: $("#range-02-text").val().replace(/[\D\s\._\-]+/g, "")
         });
     });
 
+    $("#range-03-text").val(range_3_default);
     $("#range-03-text").on('change',function() {
         var val = Math.round($("#range-03-text").val()/range_3_step) * range_3_step;
         $("#range-03-text").val(val);
