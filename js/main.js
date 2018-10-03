@@ -7,7 +7,7 @@ const range_2_default = 400000,
     range_3_max = 48,
     range_3_step = 12,
     issuerIds = [5, 11, 1, 2, 3, 7, 26, 19, 30, 39, 21, 42, 23],
-    bank_max_height = 140,
+    bank_max_height = 160,
     bank_min_height = 40;
 
 var emitents = [],
@@ -201,7 +201,8 @@ function emitentChange() {
         yeld1 = 0,
         sum1 = 0,
         yeld2 = 0,
-        sum2 = 0;
+        sum2 = 0,
+        iis = 0;
 
     if (range_3_val >= 12) {
         let localEmitents = allEmitents.filter(r => {
@@ -220,9 +221,13 @@ function emitentChange() {
         emitent = localEmitents.find(e => e.planYield = max);
     }
 
+    if (range_3_val >= 36) {
+        iis = Math.min(52000, range_2_val * 0.13);
+    }
+
     if (emitent) {
         yeld1 = emitent.planYield;
-        sum1 = Math.round(range_2_val * yeld1 / 100 * range_3_val / 12);
+        sum1 = Math.round(range_2_val * yeld1 / 100 * range_3_val / 12) + iis;
         if (range_3_val >= 36) {
             yeld1 = (yeld1 + Math.min(0.13 * range_2_val, 52000 / range_2_val / range_3_val / 12 * 100)).toFixed(2);
         }
@@ -234,15 +239,24 @@ function emitentChange() {
     }
 
     //Calc Cylinder
-    if (range_3_val >= 36) {
-        var bankTop = Math.min(52000, range_2_val * 0.13);
-        var topHeight = Math.max(bank_min_height, Math.round(bankTop * bank_max_height / sum1));
-        $('#calc-left-bank').css('height', (bank_max_height - topHeight) + 'px');
-        $('#calc-left-bank .top').css('height', topHeight + 'px');
+    let leftBankHeight = bank_max_height,
+        leftBankTopHeight = 0,
+        rightBankHeight = bank_max_height;
+
+    if (sum1 > sum2) {
+        rightBankHeight = sum2 * bank_max_height / sum1;
     } else {
-        $('#calc-left-bank').css('height', '123px');
+        leftBankHeight = sum1 * bank_max_height / sum2;
     }
-    $('#calc-right-bank').css('height', '123px');
+
+    if (range_3_val >= 36) {
+        leftBankTopHeight = Math.max(bank_min_height, Math.round(iis * bank_max_height / sum1));
+        leftBankHeight = leftBankHeight - leftBankTopHeight + 16;
+    }
+
+    $('#calc-left-bank').css('height', leftBankHeight + 'px');
+    $('#calc-right-bank').css('height', rightBankHeight + 'px');
+    $('#calc-left-bank .top').css('height', leftBankTopHeight + 'px');
     $('#calc-left-bank .top').toggleClass('hideTop', range_3_val < 36);
 
     $('#calc-yeld-1').text(yeld1);
