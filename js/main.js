@@ -24,6 +24,7 @@ $("#range-02").ionRangeSlider({
     step: range_2_step,
     from: range_2_default,
     hide_from_to: true,
+
     onChange: function (data) {
         $("#range-02-text").val(data.from);
         range_2_val = data.from;
@@ -42,6 +43,9 @@ $("#range-03").ionRangeSlider({
     step: range_3_step,
     from: range_3_default,
     hide_from_to: true,
+
+
+
     onChange: function (data) {
         $("#range-03-text").val(data.from);
         range_3_val = data.from;
@@ -75,6 +79,8 @@ owl.on('initialized.owl.carousel', function (event) {
         from: currentEmitent,
         keyboard: true,
         step: 1,
+        hide_min_max: true,
+        hide_from_to: true,
         onChange: function (data) {
             owlTo = (data.from) - 1;
             owl.trigger('to.owl.carousel', [owlTo, 500, true]);
@@ -121,8 +127,14 @@ function initializeOwlCarusel() {
             900: {
                 items: 4
             },
-            1000: {
+            1200: {
                 items: 4
+            },
+            1370: {
+                items: 5
+            },
+            1400: {
+                items: 6
             }
         }
     });
