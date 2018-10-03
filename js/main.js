@@ -24,7 +24,6 @@ $("#range-02").ionRangeSlider({
     step: range_2_step,
     from: range_2_default,
     hide_from_to: true,
-
     onChange: function (data) {
         $("#range-02-text").val(data.from);
         range_2_val = data.from;
@@ -43,9 +42,6 @@ $("#range-03").ionRangeSlider({
     step: range_3_step,
     from: range_3_default,
     hide_from_to: true,
-
-
-
     onChange: function (data) {
         $("#range-03-text").val(data.from);
         range_3_val = data.from;
@@ -127,7 +123,7 @@ function initializeOwlCarusel() {
             900: {
                 items: 4
             },
-            1200: {
+            1000: {
                 items: 4
             },
             1370: {
@@ -231,7 +227,7 @@ function emitentChange() {
 
     if (bankYelds) {
         yeld2 = bankYelds[Math.round(range_3_val / 12) - 1];
-        sum2 = range_2_val * yeld2 / 100 * range_3_val / 12;
+        sum2 = Math.round(range_2_val * yeld2 / 100 * range_3_val / 12);
     }
 
     //Calc Cylinder
@@ -303,8 +299,9 @@ $(document).ready(function () {
         .then(response => response.text())
         .then(text => {
             let yelds = text.split("\n").map(x => parseFloat(x));
-            if (yelds && yelds.length == 4 ){
-                bankYelds = yelds
+            if (yelds && yelds.length > 3 ){
+                bankYelds = yelds.slice(0,4),
+                emitentChange();
             }
         })
     
