@@ -14,8 +14,6 @@ var emitents = [],
     allEmitents,
     range_2_val = range_2_default,
     range_3_val = range_3_default,
-    currentEmitent = 1,
-    timer,
     bankYelds;
 
 $("#range-02").ionRangeSlider({
@@ -72,7 +70,7 @@ owl.on('initialized.owl.carousel', function (event) {
         type: "single",
         min: 1,
         max: itemCount - (size - 1),
-        from: currentEmitent,
+        from: 1,
         keyboard: true,
         step: 1,
         hide_min_max: true,
@@ -80,15 +78,6 @@ owl.on('initialized.owl.carousel', function (event) {
         onChange: function (data) {
             owlTo = (data.from) - 1;
             owl.trigger('to.owl.carousel', [owlTo, 500, true]);
-            currentEmitent = data.from;
-            emitentChange();
-        },
-        onUpdate: function (data) {
-            // console.log(data.from)
-            if(currentEmitent != data.from){
-                currentEmitent = data.from;
-                emitentChange();
-            }
         }
     });
 
@@ -98,9 +87,9 @@ owl.on('initialized.owl.carousel', function (event) {
 
 
 
-function initializeOwlCarusel() {
+function initializeOwlCarusel(isLoop) {
     owl.owlCarousel({
-        loop: true,
+        loop: isLoop,
         center: true,
         mouseDrag: true,
         margin: 10,
@@ -205,7 +194,7 @@ function emitentChange() {
         sum2 = 0,
         iis = 0;
 
-    let localEmitents = allEmitents.filter(r => {
+    let localEmitents = allEmitents && allEmitents.filter(r => {
         var dateDiff = Math.floor((Date.parse(r.planDate) - Date.now()) / (1000 * 60 * 60 * 24));
         if(year == 1)
             return dateDiff <= 365;
@@ -217,8 +206,10 @@ function emitentChange() {
             return dateDiff > 1095 && dateDiff <= 1460;
         return false;
     });
-    let maxYeld = Math.max.apply(null, localEmitents.map(e => e.planYield));
-    emitent = localEmitents.find(e => e.planYield = maxYeld);
+    if (localEmitents) {
+        let maxYeld = localEmitents && Math.max.apply(null, localEmitents.map(e => e.planYield));
+        emitent = localEmitents && localEmitents.find(e => e.planYield = maxYeld);
+    }
 
     if (year >= 3) {
         iis = Math.min(52000, range_2_val * 0.13);
@@ -237,19 +228,15 @@ function emitentChange() {
         sum2 = Math.round(range_2_val * (yeld2 / 100) * year);
     }
 
-    //Calc Cylinder
-    let leftBankHeight = bank_max_height,
-        leftBankTopHeight = 0,
-        rightBankHeight = bank_max_height;
-
-    if (sum1 > sum2) {
-        rightBankHeight = sum2 * bank_max_height / sum1;
-    } else {
-        leftBankHeight = sum1 * bank_max_height / sum2;
-    }
+    let iisMax = year >= 3 ? Math.min(52000, 1000000 * 0.13) : 0;
+    let sum1max = Math.round(1000000 * (emitent.planYield / 100) * year) + iisMax;
+    let sum2max = Math.round(1000000 * (yeld2 / 100) * year);
+    let leftBankHeight = sum1 * bank_max_height / sum1max;
+    let rightBankHeight = sum2 * bank_max_height / sum2max;
+    let leftBankTopHeight = 0;
 
     if (year >= 3) {
-        leftBankTopHeight = Math.max(bank_min_height, Math.round(iis * bank_max_height / sum1));
+        leftBankTopHeight = Math.max(bank_min_height, Math.round(iis * leftBankHeight / sum1));
         leftBankHeight = leftBankHeight - leftBankTopHeight + 16;
     }
 
@@ -320,7 +307,8 @@ $(document).ready(function () {
                 emitentChange();
             }
         })
-    
+        .catch(alert);
+
     fetch('https://public.evolution.ru/calc/10000000/1008')
         .then((response) => {
             return response.json();
@@ -353,10 +341,8 @@ $(document).ready(function () {
                 cards = cards.add(createCard({name: e.security.name, subName: e.planYield + '% до ' + dateString, image: img }));
             })
             $('#calc-slider').html(cards);
-            initializeOwlCarusel();
+            initializeOwlCarusel(emitents.length > 6);
             emitentChange();
-
-            // console.log(allEmitents);
         })
         .catch(alert);
 });
