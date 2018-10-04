@@ -1776,3 +1776,50 @@ body {
 .bank.gray .top:after {
     background: url(../images/gray-bank-bottom.png) no-repeat bottom;
 } 
+
+.mobile-tab {
+    display: none;
+}
+
+/* tab mobile*/
+
+.mobile-tab {
+    display: block;
+}
+
+.mobile-tab .panel.panel-default {
+    border-radius: 0;
+    border: none;
+    margin-top: 0;
+}
+
+.mobile-tab .panel.panel-default .panel-heading {
+    background: #8e89d2;
+    padding: 10px 15px;
+    border-radius: 0;
+}
+
+.mobile-tab .panel-title a {
+    color: #fff;
+    font-size: 16px;
+}
+
+.mobile-tab .panel.panel-default .panel-body {
+    padding: 0;
+    border-top: 1px solid #1e14a0;
+}
+
+.panel-default-custom .panel-heading {
+     padding: 10px 15px 10px 40px !important;
+    background: #fff !important;
+}
+
+.panel-default-custom .panel-heading a {
+    color: #ff6553;
+}
+
+.mobile-tab .collapse.in {
+    padding:0 20px;
+}
+
+/* tab mobile end */
