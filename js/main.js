@@ -229,10 +229,10 @@ function emitentChange() {
     }
 
     let iisMax = year >= 3 ? Math.min(52000, 1000000 * 0.13) : 0;
-    let sum1max = Math.round(1000000 * (emitent.planYield / 100) * year) + iisMax;
+    let sum1max = emitent && Math.round(1000000 * (emitent.planYield / 100) * year) + iisMax;
     let sum2max = Math.round(1000000 * (yeld2 / 100) * year);
-    let leftBankHeight = sum1 * bank_max_height / sum1max;
-    let rightBankHeight = sum2 * bank_max_height / sum2max;
+    let leftBankHeight = sum1 * bank_max_height / Math.max(sum1max, sum2max);
+    let rightBankHeight = sum2 * bank_max_height / Math.max(sum1max, sum2max);
     let leftBankTopHeight = 0;
 
     if (year >= 3) {
