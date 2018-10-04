@@ -1795,8 +1795,8 @@ body {
 
 .mobile-tab .panel.panel-default .panel-heading {
     background: #8e89d2;
-    padding: 10px 15px;
     border-radius: 0;
+    padding: 10px 20px 10px 40px;
 }
 
 .mobile-tab .panel-title a {
@@ -1804,22 +1804,22 @@ body {
     font-size: 16px;
 }
 
-.mobile-tab .panel.panel-default .panel-body {
-    padding: 0;
-    border-top: 1px solid #1e14a0;
-}
-
 .panel-default-custom .panel-heading {
-     padding: 10px 15px 10px 40px !important;
     background: #fff !important;
+    border-top: 0 solid #1e14a0;
 }
 
 .panel-default-custom .panel-heading a {
     color: #ff6553;
 }
 
-.mobile-tab .collapse.in {
-    padding:0 20px;
+.mobile-tab .panel-default-custom .panel-collapse.collapse {
+    border-bottom: 1px solid #1e14a0;
 }
+
+/*.mobile-tab .panel-default-custom {
+    max-height: 250px;
+    overflow: auto;
+}*/
 
 /* tab mobile end */
