@@ -88,7 +88,6 @@ owl.on('initialized.owl.carousel', function (event) {
 
 
 function initializeOwlCarusel(isLoop) {
-    console.log('Is Loop', isLoop)
     owl.owlCarousel({
         loop: isLoop,
         center: true,
@@ -228,7 +227,7 @@ function emitentChange() {
         yeld2 = bankYelds[year - 1];
         sum2 = Math.round(range_2_val * (yeld2 / 100) * year);
     }
-    
+
     let iisMax = year >= 3 ? Math.min(52000, 1000000 * 0.13) : 0;
     let sum1max = Math.round(1000000 * (emitent.planYield / 100) * year) + iisMax;
     let sum2max = Math.round(1000000 * (yeld2 / 100) * year);
