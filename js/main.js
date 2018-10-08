@@ -367,20 +367,6 @@ $(document).ready(function () {
             });
             return false;
         });
-
-        $('#form-2').submit(function () {
-            var formID = $(this).attr('id'); 
-            var formNm = $('#' + formID);
-            $.ajax({
-                type: 'POST',
-                url: '../mail/sovet.php',
-                data: formNm.serialize(),
-                success: function (data) {
-                    swal("Сообщение отправлено!");
-                }
-            });
-            return false;
-        });
     });
 
 $(function () {

@@ -1,26 +1,23 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (isset($_POST['formData'])) {$formData = $_POST['formData'];}
-    if (isset($_POST['phone'])) {$phone = $_POST['phone'];}
-    if (isset($_POST['name'])) {$name = $_POST['name'];}
-    if (isset($_POST['email'])) {$email = $_POST['email'];}
-    if (isset($_POST['messages'])) {$messages = $_POST['messages'];}
-    if (isset($_POST['hiddenTimeZone'])) {$hiddenTimeZone = $_POST['hiddenTimeZone'];}
+    $message = "";
+    if (isset($_POST['formData'])) {$message .= "" . $_POST['formData'] . "\n\n";}
+    if (isset($_POST['phone'])) {$message .= "Телефон:" . $_POST['phone'] . "\n\n";}
+    if (isset($_POST['name'])) {$message .= "Имя:" . $_POST['name'] . "\n\n";}
+    if (isset($_POST['email'])) {$message .= "Email:" . $_POST['email'] . "\n\n";}
+    if (isset($_POST['messages'])) {$message .= "Сообщение:" . $_POST['messages']  . "\n\n";}
+    if (isset($_POST['hiddenTimeZone'])) {$message .= "GMT:" . $_POST['hiddenTimeZone']  . "\n\n";}
+    if (isset($_POST['form-subj1'])) {$message .= "Сообщение отправлено с формы 'Свяжитесь со мной'" . $_POST['form1'] . "\n\n";}
+    if (isset($_POST['form-subj2'])) {$message .= "Сообщение отправлено с формы 'Рассылка'" . "\n\n";}
+    if (isset($_POST['form-subj3'])) {$message .= "Сообщение отправлено с формы 'Бесплатная консультация':";}
 
-    $to = "your@email.ru"; /*Укажите ваш адрес электронной почты*/
+    $to = "777@smmagic.online"; /*Укажите ваш адрес электронной почты*/
     $headers = "Content-type: text/plain; charset = utf-8";
     $subject = "$formData";
-    $message = "$formData\n\nТелефон: $phone \n\nОтправитель: $name \n\nОткуда: $email \n\nСообщение: $messages \n\nGMT: $hiddenTimeZone";
     $send = mail ($to, $subject, $message, $headers);
-    // if ($send == 'OK')
-    // {
-    // echo "<center>Спасибо за отправку вашего сообщения! Наши специалисты свяжутся с вами в течение часа.</center>";
-    // }
-    // else 
-    // {
-    // echo "<center><b>Ошибка. Сообщение не отправлено! Проверьте правильность введенных данных</b></center>";
-    // }
+
 } else {
 	echo 'OK';
 }
 ?>
+

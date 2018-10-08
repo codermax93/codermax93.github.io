@@ -139,13 +139,14 @@
                                         <div class="subscribe">
                                             <span class="subscribe-title">
                                                 Подпишитесь на дайджест Эволюции и участвуйте
-                                                в розыгрыше нового IPad
+                                                в розыгрыше нового IPadd
                                             </span>
                                             <form class="ajax-advice" action="" id="form-2" method="POST">
                                                 <div class="subscribe-block">
                                                     <input type="text" class="subscribe-text" placeholder="Введите Email" name="email" required>
-                                                     <input type="submit" name="submit" class="form-container__btn subscribe-submit" value="Получить советы">
-                                                     <!-- <input type="hidden" name="hiddenTimeZone" class="hidden-input"> -->
+                                                     <input type="submit" name="submit" class="form-container__btn subscribe-submit" value="Подписаться">
+                                                     <input type="hidden" name="hiddenTimeZone" class="hidden-input">
+                                                     <input type="hidden" name="form-subj2" class="hidden-input">
                                                 </div>
                                                 <ul class="unstyled centered header-subscribe-checkbox">
                                                     <li>
@@ -3431,11 +3432,12 @@
 <div class="form-container">
     <div class="fields">
         <form class="ajax-contact-form" action="" id="form" method="POST">
-            <input type="text" name="phone" placeholder="Телефон" class="input-item" id="input-tell-call" required>
-            <input type="text" name="name"  placeholder="Имя" class="input-item" required>
-            <input type="text" name="email" placeholder="E-mail" class="input-item" required>
-            <textarea class="input-textarea-call" placeholder="Комментарий" name="messages" required></textarea>
+            <input type="text" name="phone" placeholder="Телефон*" class="input-item" id="input-tell-call" required>
+            <input type="text" name="name"  placeholder="Имя*" class="input-item" required>
+            <input type="text" name="email" placeholder="E-mail" class="input-item">
+            <textarea class="input-textarea-call" placeholder="Комментарий" name="messages"></textarea>
             <input type="hidden" class="hidden-input" name="hiddenTimeZone">
+            <input type="hidden" class="hidden-input" name="form-subj1">
 
             <ul class="unstyled centered header-subscribe-checkbox custom-checkbox-modal">
             <li>
@@ -3653,12 +3655,13 @@ Cookie-файлы также могут быть использованы для
 
 <div class="form-container">
     <div class="fields">
-        <form class="ajax-contact-form" action="" id="form2" method="POST">
-            <input type="text" name="phone" placeholder="Телефон" class="input-item" id="input-tell-call" required>
-            <input type="text" name="name"  placeholder="Имя" class="input-item" required>
-            <input type="text" name="email" placeholder="E-mail" class="input-item" required>
-            <textarea class="input-textarea-call" placeholder="Комментарий" name="messages" required></textarea>
+        <form class="ajax-contact-form" action="" id="form-1" method="POST">
+            <input type="text" name="phone" placeholder="Телефон*" class="input-item" id="input-tell-call" required>
+            <input type="text" name="name"  placeholder="Имя*" class="input-item" required>
+            <input type="text" name="email" placeholder="E-mail" class="input-item">
+            <textarea class="input-textarea-call" placeholder="Комментарий" name="messages"></textarea>
             <input type="hidden" class="hidden-input" name="hiddenTimeZone">
+            <input type="hidden" class="hidden-input" name="form-subj3">
 
             <ul class="unstyled centered header-subscribe-checkbox custom-checkbox-modal">
             <li>
