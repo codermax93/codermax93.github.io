@@ -1,5 +1,7 @@
 @media (min-width: 990px) {
-
+    .mobile {
+        display: none;
+    }
     .modal:before {
         display: inline-block;
         vertical-align: middle;
@@ -21,6 +23,9 @@
 }
 
 @media screen and (max-width: 1170px) {
+    .certificate-content {
+        margin-top: 0;
+    }
     .calc-wrap {
         margin-left: 0;
     }
@@ -247,6 +252,7 @@
 
     .invest-item-wrap {
         margin-bottom: 60px;
+        min-height: 250px;
     }
 
     .invest-item-image img {
@@ -263,17 +269,30 @@
 }
 
 @media screen and (max-width: 990px) {
+    .testimonials-slider .owl-next,
+    .testimonials-slider .owl-prev {
+        display: none;
+    }
+    .app-list {
+        text-align: center;
+    }
+    .invest-item-text {
+        padding:0 20px;
+    }
+    .bond-info-item {
+        font-size: 14px;
+    }
+    .mobile-tab {
+        margin-bottom: 0;
+    }
     .custom-content {
         margin-top: 40px;
         padding: 0;
     }
-    .invest-list {
-        margin: 0 15px;
-    }
     .faq {
         display: none;
     }
-    .section-7 {
+    .section-7, .section-6 {
         margin-bottom: 0;
     }
     .work-item-pd {
@@ -290,7 +309,7 @@
         font-size: 14px;
     }
     .invest-item-wrap {
-        margin-bottom: 40px;
+        margin-bottom: 15px;
     }
     .invest-item-image {
         margin-bottom: 15px;
@@ -306,9 +325,51 @@
     .calc-wrap {
         margin-bottom: 125px;
     }
+
+        .s8-inner {
+        height: auto;
+        margin-top: 50px;
+    }
+
+    .s8-content {
+        top: 0;
+    }
 }
 
 @media screen and (max-width: 768px) {
+    .show-demo-btn-m {
+        padding-bottom: 40px;
+    }
+    .section-3:before {
+        display: none;
+    }
+    .section9 {
+        padding-bottom: 0;
+    }
+    .footer {
+        padding: 10px;
+    }
+    .bond-info-wrap {
+        max-width: 350px;
+        min-width: 260px;
+        margin: 0 auto;
+    }
+    .bond-info-wrap > div {
+        width: 100%;
+    }
+    .calc-title {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+    .bank-wrap {
+        transform: scale(0.7);
+    }
+    .s2-wrap {
+        margin-top: 40px;
+    }
+    .subscribe-text {
+        margin-right: 5px;
+    }
     .info-block-image,
     .info-block,
     .info-title {
@@ -323,29 +384,8 @@
         margin-left: 25%;
     }
 
-    .show-demo-btn,
-    .consult-free {
-        text-align: center;
-        padding: 10px 20px 10px 40px;
-        font-size: 12px;
-        display: block;
-    }
-    .show-demo-btn:before,
-    .consult-free:before {
-            width: 20px;
-            height: 20px;
-    }
-
     .app-item.registration {
         display: none;
-    }
-
-    .s8-inner {
-        margin-top: 200px;
-    }
-
-    .section-8 {
-        min-height: 500px;
     }
 
     .s8-inner {
@@ -355,10 +395,30 @@
     .show-demo-btn {
         float: none;
     }
-
-    .testimonials-slider .owl-next,
-    .testimonials-slider .owl-prev {
-        display: none;
-    }
 }
 
+@media screen and (max-width: 468px) {
+    .app-item.appstore,
+    .app-item.play {
+        max-width: 48%;
+        font-size: 11px;
+        margin-right: 0;
+    }
+
+    .section-8 {
+        overflow: hidden;
+    }
+
+    .s8-block-right img {
+        max-width: inherit;
+    }
+
+    .show-demo-btn-m {
+        max-width: 45%;
+    }
+
+    .consult-free,
+    .show-demo-btn {
+        font-size: 9px;
+    }
+}

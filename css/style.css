@@ -142,6 +142,8 @@ body {
     background-size: 100%;
     width: 100%;
     height: 100%;
+    max-width: 100%;
+    overflow: hidden;
 }
 
 .header .header-tel-item {
@@ -246,6 +248,8 @@ body {
     margin-right: 20px;
     border: 1px solid #1e14a5;
     padding: 0 20px;
+    display: inline-block;
+    vertical-align: top;
 }
 
 .subscribe-text::-webkit-input-placeholder {
@@ -599,6 +603,7 @@ body {
 
 .invest-item-wrap {
     margin-bottom: 100px;
+    min-height: 205px;
 }
 
 .work-item {
@@ -648,10 +653,15 @@ body {
     margin-bottom: 150px;
 }
 
+
+.consult-free {
+    position: relative;
+    padding: 0 20px 0 55px;
+}
+
 .show-demo-btn {
     position: relative;
     float: right;
-    padding: 20px 40px 20px 60px;
     text-decoration: none !important;
     color: #1e14a5;
     border: 2px solid #1e14a5;
@@ -660,6 +670,10 @@ body {
     transition: all .3s ease;
     -moz-transition: all .3s ease;
     -webkit-transition: all .3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
 }
 
 .show-demo-btn:hover {
@@ -683,7 +697,7 @@ body {
     content: '';
     position: absolute;
     top: 50%;
-    left: 22px;
+    left: 11px;
     transform: translate(0, -50%);
     background: url('../images/chat-white.svg') no-repeat;
     background-position: 0 0;
@@ -692,15 +706,16 @@ body {
 
 }
 
-.section-7 {
-    margin-bottom: 230px;
+.show-demo-btn-m {
+    display: inline-block;
+    vertical-align: middle;
 }
 
 .s8-inner {
     position: relative;
     background: url('../images/s8.png') no-repeat scroll center top/cover;
     max-width: 100%;
-    height: calc(100vw/5.111);
+    height: calc(100vw/4.111);
     margin-top: 300px;
 }
 
@@ -741,9 +756,24 @@ body {
     margin-right: 20px;
     background: #fff;
     max-width: 170px;
-    padding: 7px 20px 10px 50px;
     font-size: 16px;
     border: 1px solid #ccc;
+}
+
+.app-item.appstore a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding: 0 15px 0 40px;
+}
+
+.app-item.play a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding: 0 15px 0 40px;
 }
 
 .app-item.appstore:before {
@@ -762,7 +792,6 @@ body {
     position: relative;
     background: #fff;
     max-width: 160px;
-    padding: 7px 20px 10px 50px;
     font-size: 16px;
     border: 1px solid #ccc;
 }
@@ -806,7 +835,6 @@ body {
 .testimonials-block {
     background: #fff;
     padding: 30px;
-    height: 300px;
 }
 
 .testimonials-slider .owl-stage-outer {
@@ -1150,7 +1178,7 @@ body {
 
 .certificate-content {
     font-size: 12px;
-    margin-top: 44px;
+    margin-top: 25px;
     color: #fff;
     padding-left: 5px;
     padding-right: 5px;
@@ -1214,6 +1242,7 @@ body {
 
 .footer-icon {
     margin-top: 55px;
+    width: 60px;
 }
 
 .footer {
@@ -1242,7 +1271,6 @@ body {
     opacity: 1;
     display: inline-block;
     background: #ff6553;
-    padding: 20px 40px 20px 60px;
     text-decoration: none !important;
     color: #fff;
     font-size: 18px;
@@ -1251,6 +1279,11 @@ body {
     transition: all .3s ease;
     -moz-transition: all .3s ease;
     -webkit-transition: all .3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    padding: 0 20px 0 55px;
 }
 
 .consult-free:hover {
@@ -1793,10 +1826,15 @@ body {
     margin-top: 0;
 }
 
-.mobile-tab .panel.panel-default .panel-heading {
+.mobile-tab .panel.panel-default .panel-heading  {
     background: #8e89d2;
     border-radius: 0;
-    padding: 10px 20px 10px 40px;
+    padding: 0;
+}
+
+.mobile-tab .panel.panel-default .panel-heading .panel-title a {
+    display: block;
+    padding: 10px 20px 10px 20px;
 }
 
 .mobile-tab .panel-title a {
@@ -1805,21 +1843,133 @@ body {
 }
 
 .panel-default-custom .panel-heading {
-    background: #fff !important;
+
     border-top: 0 solid #1e14a0;
 }
 
-.panel-default-custom .panel-heading a {
-    color: #ff6553;
+.mobile-tab > .panel-default > .panel-heading {
+    position: relative;
 }
 
-.mobile-tab .panel-default-custom .panel-collapse.collapse {
-    border-bottom: 1px solid #1e14a0;
+.mobile-tab .panel.panel-default .panel-body {
+    padding: 10px;
 }
 
-/*.mobile-tab .panel-default-custom {
-    max-height: 250px;
-    overflow: auto;
-}*/
-
+.panel.panel-default .panel-body .panel-group > div > div.panel-heading > h4 > a {
+    padding: 10px 20px 10px 40px;
+}
 /* tab mobile end */
+
+.tab-platform-list > .tab-platform-item {
+    display: inline-block;
+    width: auto;
+}
+
+.tab-platform-link {
+    position: relative;
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+}
+
+.tab-platform-item .tab-platform-link.ios:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: url('../images/apple.svg');
+    width: 25px;
+    height: 25px;
+}
+
+.tab-platform-item .tab-platform-link.android:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: url('../images/android-logo.svg');
+    width: 25px;
+    height: 25px;
+}
+
+.tab-platform-item .tab-platform-link.desktop:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: url('../images/desktop-monitor.svg');
+    width: 25px;
+    height: 25px;
+}
+
+.tab-platform-item.active .tab-platform-link.ios:before,
+.tab-platform-item.active .tab-platform-link.android:before,
+.tab-platform-item.active .tab-platform-link.desktop:before {
+    -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+    filter: grayscale(100%);
+}
+
+.tab-content-platform .tab-pane video {
+    max-width: 100%;
+    /*pointer-events: none;*/
+}
+
+.platform-custom-content {
+    padding: 0 15px;
+}
+
+.tab-platform-list {
+    margin-bottom: 15px;
+}
+
+.video-modal {
+    margin-bottom: 20px;
+}
+
+.swal2-popup .swal2-title {
+    font-size: 15px !important;
+}
+
+.swal2-popup .swal2-styled.swal2-confirm {
+    font-size: 18px !important;
+}
+
+.show-demo-btn {
+    text-align: center;
+    padding: 0 20px 0 55px;
+    margin-right: 10px;
+}
+
+.certificate .row > div {
+    margin: 25px 0;
+}
+
+
+.section-5 {
+    overflow: hidden;
+}
+
+.s3-title-tooltip {
+    display: inline-block;
+    background: #fff;
+    border: none;
+    color: #1e14a5;
+    text-decoration: underline;
+}
+
+.tooltip-inner {
+    max-width: 300px !important;
+}
+
+.bond-info-item-tooltip {
+    border: none;
+    color: #ff6553;
+    font-size: 16px;
+    font-family: 'Proxima Nova Thin';
+    font-weight: 700;
+    background: #fff;
+    text-decoration: underline;
+}

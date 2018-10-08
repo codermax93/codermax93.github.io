@@ -274,7 +274,7 @@ function createCard(cardData) {
 $(document).ready(function () {
     $('a[rel="relativeanchor"]').click(function () {
         $('html, body').animate({
-            scrollTop: $($.attr(this, 'href')).offset().top - 150
+            scrollTop: $($.attr(this, 'href')).offset().top - 100
         }, 1000);
         return false;
     });
@@ -304,7 +304,7 @@ $(document).ready(function () {
                 emitentChange();
             }
         })
-        .catch(alert);
+        // .catch(alert);
 
     fetch('https://public.evolution.ru/calc/10000000/1008')
         .then((response) => {
@@ -341,7 +341,48 @@ $(document).ready(function () {
             initializeOwlCarusel(emitents.length > 6);
             emitentChange();
         })
-        .catch(alert);
+        // .catch(alert);
 });
 
 $('#input-tell-call').mask('+7 (000) 000-00-00');
+
+// get GMT
+
+let timezone = -(new Date().getTimezoneOffset() / 60) ;
+$('.hidden-input').val(timezone);
+
+
+$(document).ready(function () {
+        $('form').submit(function () {
+            var formID = $(this).attr('id'); 
+            var formNm = $('#' + formID);
+            $.ajax({
+                type: 'POST',
+                url: '../mail/contact.php',
+                data: formNm.serialize(),
+                success: function (data) {
+                    swal("Сообщение отправлено!");
+                    $(".modal").modal('hide');
+                }
+            });
+            return false;
+        });
+
+        $('#form-2').submit(function () {
+            var formID = $(this).attr('id'); 
+            var formNm = $('#' + formID);
+            $.ajax({
+                type: 'POST',
+                url: '../mail/sovet.php',
+                data: formNm.serialize(),
+                success: function (data) {
+                    swal("Сообщение отправлено!");
+                }
+            });
+            return false;
+        });
+    });
+
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
